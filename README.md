@@ -7,6 +7,8 @@
 ## Prerequisites
 
 - Install [`bpftool`](https://github.com/libbpf/bpftool/blob/main/README.md)
+
+`cargo generate https://github.com/aya-rs/aya-template`
 ## Goals
 
 
