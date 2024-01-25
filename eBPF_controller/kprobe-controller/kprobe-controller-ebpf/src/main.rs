@@ -1,10 +1,10 @@
 #![no_std]
 #![no_main]
 
-use aya_bpf::{macros::kprobe, programs::ProbeContext};
+use aya_bpf::{macros::kretprobe, programs::ProbeContext};
 use aya_log_ebpf::info;
 
-#[kprobe]
+#[kretprobe]
 pub fn kprobe_controller(ctx: ProbeContext) -> u32 {
     match try_kprobe_controller(ctx) {
         Ok(ret) => ret,
@@ -13,7 +13,7 @@ pub fn kprobe_controller(ctx: ProbeContext) -> u32 {
 }
 
 fn try_kprobe_controller(ctx: ProbeContext) -> Result<u32, u32> {
-    info!(&ctx, "function filp_open called");
+    info!(&ctx, "function do_sys_open called");
     Ok(0)
 }
 

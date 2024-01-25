@@ -37,7 +37,7 @@ async fn main() -> Result<(), anyhow::Error> {
     }
     let program: &mut KProbe = bpf.program_mut("kprobe_controller").unwrap().try_into()?;
     program.load()?;
-    program.attach("filp_open", 0)?;
+    program.attach("do_sys_open", 0)?;
 
     info!("Waiting for Ctrl-C...");
     signal::ctrl_c().await?;
