@@ -8,13 +8,14 @@ use tokio::signal;
 
 #[derive(Debug, Parser)]
 struct Opt {
-    #[clap(short, long, default_value = "eth0")]
-    iface: String,
+    #[clap(short, long, default_value = "wlp3s0")]
+    iface: String = "wlp3s0".to_string(),
 }
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
     let opt = Opt::parse();
+
 
     env_logger::init();
 
