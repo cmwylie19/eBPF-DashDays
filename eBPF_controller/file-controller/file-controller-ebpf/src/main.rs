@@ -16,7 +16,7 @@ pub fn file_controller(ctx: TracePointContext) -> u32 {
 }
 
 fn try_file_controller(ctx: TracePointContext) -> Result<u32, u32> {
-    info!(&ctx, "tracepoint syscalls_sys_enter_open called");
+    info!(&ctx, "tracepoint sys_enter_open called");
     Ok(0)
 }
 
