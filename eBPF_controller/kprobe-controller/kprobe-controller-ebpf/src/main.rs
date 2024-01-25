@@ -13,7 +13,7 @@ pub fn kprobe_controller(ctx: ProbeContext) -> u32 {
 }
 
 fn try_kprobe_controller(ctx: ProbeContext) -> Result<u32, u32> {
-    info!(&ctx, "function do_sys_open called");
+    info!(&ctx, "function execve called");
     Ok(0)
 }
 
