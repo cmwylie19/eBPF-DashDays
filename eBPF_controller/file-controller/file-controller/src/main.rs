@@ -37,7 +37,7 @@ async fn main() -> Result<(), anyhow::Error> {
     }
     let program: &mut TracePoint = bpf.program_mut("file_controller").unwrap().try_into()?;
     program.load()?;
-    program.attach("sys", "sys_enter_open")?;
+    program.attach("syscalls", "sys_enter_open")?;
 
     info!("Waiting for Ctrl-C...");
     signal::ctrl_c().await?;
