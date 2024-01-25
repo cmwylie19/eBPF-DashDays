@@ -22,5 +22,5 @@ cargo build
 ## Run
 
 ```bash
-RUST_LOG=info cargo xtask run
+RUST_LOG=info cargo xtask run -- --iface wlp3s0
 ```
