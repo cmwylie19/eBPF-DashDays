@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./eBPF_controller/file-controller/file-controller/Cargo.toml"
+    ]
+}

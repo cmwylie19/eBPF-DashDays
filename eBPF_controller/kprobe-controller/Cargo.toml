@@ -1,3 +1,0 @@
-[workspace]
-members = ["xtask", "kprobe-controller", "kprobe-controller-common"]
-resolver = "2"
