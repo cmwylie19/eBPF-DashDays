@@ -34,7 +34,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let user = unsafe {
         bpf_probe_read_user_str_bytes(ctx.as_ptr() as *const u8, &mut dest);
     };
-    info!(&ctx, "user ",user );
+    info!(&ctx, "user: {} ",user );
     // let mut dest = [0u8; 256];
     
     // let r = unsafe {
