@@ -25,11 +25,13 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
 
-    let tsig = ctx.read_at::<u64>(24).unwrap() as u32;
+    let tsig = unsafe {
+        ctx.read_at::<u64>(24).unwrap() as u32;
+    };
     if tsig == 0 {
         return Ok(0);
     }
-    let tpid = ctx.read_at::<i64>(16).unwrap() as i32;
+    let tpid = unsafe {ctx.read_at::<i64>(16).unwrap() as i32; }
 
     let tid = bpf_get_current_pid_tgid() as u32;
     let comm = bpf_get_current_comm().unwrap();
