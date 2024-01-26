@@ -1,0 +1,2 @@
+[workspace]
+members = ["xtask", "file-controller-3", "file-controller-3-common"]
