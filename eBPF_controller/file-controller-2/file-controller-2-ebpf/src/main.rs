@@ -37,6 +37,23 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let user = unsafe {
         unsafe { bpf_probe_read_user_str_bytes(node as *const u8, &mut buf).map_err(|e| e as u32)? };
     };
+    match user {
+        Ok(len) => {
+            // `len` is the length of the string. Use it to slice `dest` and convert to a str
+            if let Ok(str_slice) = core::str::from_utf8(&dest[..len]) {
+                // `str_slice` is a `&str`, log it directly
+                info!(&ctx, "user: {}", str_slice);
+            } else {
+                // Handle invalid UTF-8
+                info!(&ctx, "user: [Invalid UTF-8]");
+            }
+        }
+        Err(err) => {
+            // Handle the error, for example, you might want to return an error code from your eBPF program
+            info!(&ctx, "Failed to read user string: {}", err);
+            return Err(err as u32);
+        }
+    }
     info!(&ctx, "user:  {}",user );
 
 
