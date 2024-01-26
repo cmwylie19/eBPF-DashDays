@@ -1,6 +1,6 @@
 #![no_std]
 #![no_main]
-
+use core::ffi::c_char;
 use aya_bpf::helpers::bpf_get_current_uid_gid;
 use aya_bpf::helpers::bpf_ktime_get_ns;
 use aya_bpf::helpers::bpf_probe_read_kernel_str_bytes;
