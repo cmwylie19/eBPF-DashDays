@@ -3,6 +3,8 @@
 
 use aya_bpf::helpers::bpf_get_current_uid_gid;
 use aya_bpf::helpers::bpf_ktime_get_ns;
+use aya_bpf::helpers::bpf_probe_read_user_str_bytes;
+use aya_bpf::helpers::bpf_probe_read_kernel_str_bytes;
 use aya_bpf::{
     helpers::bpf_probe_read_user, macros::tracepoint, maps::HashMap, programs::TracePointContext,
 };
@@ -27,17 +29,11 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     // // Get the current user ID
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
+
+    let user = bpf_probe_read_user_str_bytes(ctx, ctx.args[0] as *const u8, 256);
+    info!(&ctx, "user ",user );
     
-    info!(&ctx, "data: {}", ctx.data());
  
-   
-
-    // // Generate a unique key for this event
-    // // You can use a counter, timestamp, or any other method that suits your use case
-    // let key = bpf_ktime_get_ns(); // Using the current timestamp as a key
-
-    // // Insert the log entry into the map
-    // EVENTS.insert(&key, &log_entry, 0).map_err(|_| 1u32)?;
     Ok(0)
 }
 
