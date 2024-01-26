@@ -40,10 +40,11 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     // Read the string from user space into your buffer
     let user = unsafe { bpf_probe_read_user_str_bytes(src_ptr, &mut dest) };
 
+    
     // Check the result of the read operation
     match user {
         Ok(len) => {
-            let len = len as usize;
+        
             if let Ok(str) = core::str::from_utf8(&dest[..len]) {
                 info!(&ctx, "user: {}", str);
             } else {
