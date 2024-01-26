@@ -1,6 +1,9 @@
 #![no_std]
 #![no_main]
 
+use aya_bpf::helpers::*;
+use aya_bpf::macros::*;
+
 use aya_bpf::{macros::kprobe, programs::ProbeContext};
 use aya_log_ebpf::info;
 use file_controller_3_common::Filename;
