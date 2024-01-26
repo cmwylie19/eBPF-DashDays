@@ -1,0 +1,2 @@
+[workspace]
+members = ["xtask", "tracepoint-controller", "tracepoint-controller-common"]
