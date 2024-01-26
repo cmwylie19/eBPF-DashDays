@@ -2,6 +2,7 @@
 #![no_main]
 
 use aya_bpf::{
+    
     cty::c_long,
     helpers::{
         bpf_get_current_pid_tgid,
@@ -23,7 +24,7 @@ pub fn tracepoint_controller(ctx: TracePointContext) -> u32 {
     }
 }
 
-fn try_tracepoint_controller(ctx: TracePointContext) -> Result<u32, i64>> {
+fn try_tracepoint_controller(ctx: TracePointContext) -> Result<c_long, c_long>  {
     info!(&ctx, "tracepoint sys_enter_execve called");
 
     const FILENAME_OFFSET: usize = 16;
