@@ -2,7 +2,6 @@
 #![no_main]
 
 use aya_bpf::helpers::bpf_get_current_uid_gid;
-use aya_bpf::helpers::bpf_trace_printk;
 use aya_bpf::helpers::bpf_ktime_get_ns;
 use aya_bpf::{
     helpers::bpf_probe_read_user, macros::tracepoint, maps::HashMap, programs::TracePointContext,
