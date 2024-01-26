@@ -8,7 +8,7 @@ use aya_bpf::BpfContext;
 use aya_bpf::helpers::{
     bpf_get_current_pid_tgid, bpf_get_current_uid_gid, bpf_probe_read_buf,
     bpf_probe_read_user_str_bytes,
-},
+};
 use aya_bpf::{
     macros::{map, tracepoint}, maps::HashMap, programs::TracePointContext,
 };

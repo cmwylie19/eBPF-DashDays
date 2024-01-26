@@ -8,4 +8,4 @@ rebuild:
 	@echo "Running cargo build..."
 	@cargo build
 	@echo "Running RUST_LOG=info cargo xtask run..."
-	@RUST_LOG=info cargo xtask run
+	@RUST_LOG=aya=trace cargo xtask run
