@@ -32,7 +32,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let pid = (bpf_get_current_pid_tgid() >> 32).try_into().unwrap();
     let tid = bpf_get_current_pid_tgid() as u32;
     let comm = bpf_get_current_comm().unwrap();
-    info!(&ctx, "comm: {}", comm);
+    
     info!(
         &ctx,
         "tracepoint sys_enter_openat called: pid: {}, tid: {}, tpid: {}, tsig: {}",
