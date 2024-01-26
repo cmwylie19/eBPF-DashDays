@@ -5,6 +5,10 @@ use aya_bpf::{macros::kprobe, programs::ProbeContext};
 use aya_log_ebpf::info;
 use file_controller_3_common::Filename;
 use aya_bpf::maps::HashMap;
+use aya_bpf::BpfContext;
+use aya_bpf::helpers::bpf_probe_read_user_str;
+use aya_bpf::helpers::gen::bpf_probe_read_user_str;
+use aya_bpf::PtRegs;
 
 #[map(name = "PIDS")]
 static mut PIDS: HashMap<u32, Filename> = HashMap::with_max_entries(10240000, 0);
