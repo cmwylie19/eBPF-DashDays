@@ -22,7 +22,7 @@ pub fn file_controller_3(ctx: ProbeContext) -> u32 {
     }
 }
 
-fn try_file_controller_3(ctx: ProbeContext) -> Result<u32, u32> {
+fn try_file_controller_3<T>(ctx: ProbeContext) -> Result<u32, u32> {
     info!(&ctx, "function syscalls:sys_enter_execv called");
 
     unsafe {
