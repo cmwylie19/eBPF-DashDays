@@ -26,7 +26,7 @@ fn try_file_controller_3(ctx: ProbeContext) -> Result<u32, u32> {
     info!(&ctx, "function syscalls:sys_enter_execv called");
 
     unsafe {
-        info!(&ctx, "args: {} ",ctx.arg(0).unwrap());
+        info!(&ctx, "args: {} ",ctx.arg::<T>(0).unwrap());
         // let pid = ctx.pid();
         // //  info!(&ctx, "args: {} ",ctx.arg(0).unwrap());
 
