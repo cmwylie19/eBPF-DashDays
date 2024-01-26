@@ -12,7 +12,7 @@ use aya_bpf::helpers::bpf_get_current_uid_gid;
 
 use aya_bpf::helpers::gen::bpf_get_current_uid_gid;
 #[aya_bpf::macros::map]
-static EVENTS: HashMap<u32, FileLog> = HashMap::with_max_entries(1024, 0);
+static EVENTS: HashMap<u64, FileLog> = HashMap::with_max_entries(1024, 0);
 
 #[tracepoint]
 pub fn file_controller_2(ctx: TracePointContext) -> u32 {
