@@ -23,11 +23,7 @@ pub fn file_controller_2(ctx: TracePointContext) -> u32 {
 
 fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     info!(&ctx, "tracepoint sys_enter_openat called");
-    info!(
-        ctx.args(),
-        "tracepoint sys_enter_openat called with args",
-        )
-    ;
+
     info!( &bpf_get_current_uid_gid(),"uid");
 
     
