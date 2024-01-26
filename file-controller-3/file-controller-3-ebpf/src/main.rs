@@ -24,23 +24,25 @@ pub fn file_controller_3(ctx: ProbeContext) -> u32 {
 
 fn try_file_controller_3(ctx: ProbeContext) -> Result<u32, u32> {
     info!(&ctx, "function syscalls:sys_enter_execv called");
+
     unsafe {
+        info!(&ctx, "args: {} ",ctx.arg(0).unwrap());
         // let pid = ctx.pid();
         // //  info!(&ctx, "args: {} ",ctx.arg(0).unwrap());
 
         // if PIDS.get(&pid).is_none() {
-            let regs = PtRegs::new(ctx.arg(0).unwrap());
-            let filename_addr: *const u8 = regs.arg(0).unwrap();
+            // let regs = PtRegs::new(ctx.arg(0).unwrap());
+            // let filename_addr: *const u8 = regs.arg(0).unwrap();
 
-            let mut buf = [0u8; 127];
-            let filename_len = bpf_probe_read_user_str(filename_addr as *const u8, &mut buf)
-                .map_err(|e| e as u32)? as u8;
+            // let mut buf = [0u8; 127];
+            // let filename_len = bpf_probe_read_user_str(filename_addr as *const u8, &mut buf)
+            //     .map_err(|e| e as u32)? as u8;
 
-            // let log_entry = Filename {
-            //     filename: buf,
-            //     filename_len,
-            // };
-            info!(&ctx, "filename: {} ", filename_len);
+            // // let log_entry = Filename {
+            // //     filename: buf,
+            // //     filename_len,
+            // // };
+            // info!(&ctx, "filename: {} ", filename_len);
         //     PIDS.insert(&pid, &log_entry, 0).unwrap();
         // }
     }
