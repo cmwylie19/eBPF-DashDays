@@ -1,6 +1,5 @@
 #![no_std]
 #![no_main]
-use core::ffi::c_char;
 use aya_bpf::helpers::bpf_get_current_uid_gid;
 use aya_bpf::helpers::bpf_ktime_get_ns;
 use aya_bpf::helpers::bpf_probe_read_kernel_str_bytes;
@@ -11,6 +10,7 @@ use aya_bpf::{
 };
 use aya_log_ebpf::info;
 use core::convert::TryInto;
+use core::ffi::c_char;
 use file_controller_2_common::FileLog;
 
 #[aya_bpf::macros::map]
@@ -29,19 +29,13 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let mut dest = [0u8; 16];
     let mut buf = [0u8; 16];
 
-
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
 
     let node: *const c_char;
-    let user = unsafe {
-        unsafe { bpf_probe_read_user_str_bytes(node as *const u8, &mut buf).map_err(|e| e as u32)? };
-    };
+    let user = unsafe { bpf_probe_read_user_str_bytes(node as *const u8, &mut buf) };
 
-    info!(&ctx, "user:",user );
-
-
-
+    info!(&ctx, "user:", user);
 
     // let mut dest = [0u8; 256];
 
