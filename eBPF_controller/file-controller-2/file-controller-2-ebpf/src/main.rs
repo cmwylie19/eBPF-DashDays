@@ -45,12 +45,16 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     // Check the result of the read operation
     match user {
         Ok(len) => {
-            // String read successfully, `len` contains the length of the string.
-            // You can now use `dest` buffer which contains the copied string.
-            info!(&ctx, "user:  {}",user );
+            if let Ok(str) = core::str::from_utf8(&dest[..len]) {
+                info!(&ctx, "user: {}", str
+            }else {
+                // Handle invalid UTF-8
+                info!(&ctx, "user: [Invalid UTF-8]");
+            }
         }
         Err(err) => {
-            // Handle the error, for example, you might want to return an error code from your eBPF program
+            info!(&ctx, "Failed to read user string: {}", err);
+
             return Err(err as u32);
         }
     }
