@@ -3,12 +3,12 @@
 
 use aya_bpf::helpers::bpf_get_current_uid_gid;
 use aya_bpf::helpers::bpf_ktime_get_ns;
-use aya_bpf::helpers::bpf_probe_read_user_str_bytes;
 use aya_bpf::helpers::bpf_probe_read_kernel_str_bytes;
+use aya_bpf::helpers::bpf_probe_read_user_str_bytes;
+use aya_bpf::BpfContext;
 use aya_bpf::{
     helpers::bpf_probe_read_user, macros::tracepoint, maps::HashMap, programs::TracePointContext,
 };
-use aya_bpf::BpfContext;
 use aya_log_ebpf::info;
 use core::convert::TryInto;
 use file_controller_2_common::FileLog;
@@ -35,16 +35,15 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     //     bpf_probe_read_user_str_bytes(ctx.as_ptr() as *const u8, &mut dest);
     // };
     // info!(&ctx, "user:  ",user );
-    let src_ptr = unsafe { ctx.as_ptr().add(offset) as *const u8 };
+    let src_ptr = unsafe { ctx.as_ptr().add(16) as *const u8 };
 
     // Read the string from user space into your buffer
-    let user = unsafe {
-        bpf_probe_read_user_str_bytes(src_ptr, &mut dest)
-    };
+    let user = unsafe { bpf_probe_read_user_str_bytes(src_ptr, &mut dest) };
 
     // Check the result of the read operation
     match user {
         Ok(len) => {
+            let len = len as usize;
             if let Ok(str) = core::str::from_utf8(&dest[..len]) {
                 info!(&ctx, "user: {}", str);
             } else {
@@ -58,13 +57,13 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
             return Err(err as u32);
         }
     }
-    
+
     // let mut dest = [0u8; 256];
-    
+
     // let r = unsafe {
     //     bpf_probe_read_kernel_str_bytes((ctx.as_ptr() as *const u8).add(16), &mut dest)
     // };
- 
+
     Ok(0)
 }
 
