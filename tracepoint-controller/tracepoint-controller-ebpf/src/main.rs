@@ -17,7 +17,7 @@ use aya_bpf::{
 use aya_log_ebpf::info;
 
 #[tracepoint]
-pub fn tracepoint_controller(ctx: TracePointContext) -> u32 {
+pub fn tracepoint_controller(ctx: TracePointContext) -> c_long {
     match try_tracepoint_controller(ctx) {
         Ok(ret) => ret,
         Err(ret) => ret,
