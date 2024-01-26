@@ -40,7 +40,7 @@ fn try_file_controller_3(ctx: ProbeContext) -> Result<u32, u32> {
             //     filename: buf,
             //     filename_len,
             // };
-            info!(&ctx, "filename: {} ", log_entry.filename_len);
+            info!(&ctx, "filename: {} ", filename_len);
         //     PIDS.insert(&pid, &log_entry, 0).unwrap();
         // }
     }
