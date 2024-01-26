@@ -66,7 +66,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, i64> {
                     .get(&(bpf_get_current_uid_gid() as u32))
                     .is_none())
     } {
-        return Ok(());
+        return Ok(0);
     }
     let mut send_byte = [0u8; 19 + STR_MAX_LENGTH];
     let syscall_number = unsafe { ctx.read_at::<u64>(8)? };
