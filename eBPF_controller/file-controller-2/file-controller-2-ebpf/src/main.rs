@@ -7,11 +7,11 @@ use aya_bpf::{
 };
 use aya_log_ebpf::info;
 use core::convert::TryInto;
-use file_controller_common::FileLog;
+use file_controller_2_common::FileLog;
 use aya_bpf::helpers::bpf_get_current_uid_gid;
 
 use aya_bpf::helpers::gen::bpf_get_current_uid_gid;
-#[map]
+#[aya_bpf::macros::map]
 static EVENTS: HashMap<u32, FileLog> = HashMap::with_max_entries(1024, 0);
 
 #[tracepoint]
