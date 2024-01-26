@@ -38,7 +38,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
         unsafe { bpf_probe_read_user_str_bytes(node as *const u8, &mut buf).map_err(|e| e as u32)? };
     };
 
-    info!(&ctx, "user:  {}",user );
+    info!(&ctx, "user:",user );
 
 
 
