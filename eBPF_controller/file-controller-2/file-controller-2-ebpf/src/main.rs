@@ -10,7 +10,7 @@ use core::convert::TryInto;
 use file_controller_2_common::FileLog;
 use aya_bpf::helpers::bpf_get_current_uid_gid;
 
-use aya_bpf::helpers::gen::bpf_get_current_uid_gid;
+
 #[aya_bpf::macros::map]
 static EVENTS: HashMap<u64, FileLog> = HashMap::with_max_entries(1024, 0);
 
