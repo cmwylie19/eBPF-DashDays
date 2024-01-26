@@ -2,6 +2,7 @@
 #![no_main]
 
 use aya_bpf::helpers::bpf_get_current_uid_gid;
+use aya_bpf::helpers::bpf_trace_printk;
 use aya_bpf::helpers::bpf_ktime_get_ns;
 use aya_bpf::{
     helpers::bpf_probe_read_user, macros::tracepoint, maps::HashMap, programs::TracePointContext,
@@ -28,7 +29,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
 let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
     
-  
+    bpf_trace_printk("HI ")
  
    
 
