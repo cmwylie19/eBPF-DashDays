@@ -4,6 +4,7 @@
 - [Prerequisites](#prerequisites)
 - [Goals](#goals)
 - [List Tracepoints](#list-tracepoints)
+- [eBPF Helpers](https://github.com/aya-rs/aya/blob/79c1d8495e49acea45a952170acbbd41a8cb6485/bpf/aya-bpf/src/helpers.rs#L47)
 
 ## Prerequisites
 
