@@ -23,7 +23,13 @@ pub fn file_controller_2(ctx: TracePointContext) -> u32 {
 
 fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     info!(&ctx, "tracepoint sys_enter_openat called");
-
+    info!(
+        &ctx,
+        "tracepoint sys_enter_openat called with args: {:?}",
+        ctx.args())
+    ;
+    info!(bpf_get_current_uid_gid()),"uid: {:?}",
+        bpf_get_current_uid_gid() & 0xFFFFFFFF  // Lower 32 bits";
     // Access the registers to get the filename pointer
     let regs = ctx.regs();
     let filename_ptr = regs.rcx as *const u8; // Modify as per your architecture and syscall
