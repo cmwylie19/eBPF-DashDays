@@ -28,7 +28,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
         "tracepoint sys_enter_openat called with args",
         )
     ;
-    info!( bpf_get_current_uid_gid(),"uid");
+    info!( &bpf_get_current_uid_gid(),"uid");
 
     
   
