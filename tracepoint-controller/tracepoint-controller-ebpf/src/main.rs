@@ -9,8 +9,6 @@ use aya_bpf::{
     },
 };
 
-use aya_log_ebpf::info;
-
 use aya_bpf::{
     macros::tracepoint,
     programs::TracePointContext,
@@ -25,7 +23,7 @@ pub fn tracepoint_controller(ctx: TracePointContext) -> u32 {
     }
 }
 
-fn try_tracepoint_controller(ctx: TracePointContext) -> Result<u32, u32> {
+fn try_tracepoint_controller(ctx: TracePointContext) -> Result<u32, i64>> {
     info!(&ctx, "tracepoint sys_enter_execve called");
 
     const FILENAME_OFFSET: usize = 16;
