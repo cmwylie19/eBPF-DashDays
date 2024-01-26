@@ -24,7 +24,9 @@ pub fn file_controller_2(ctx: TracePointContext) -> u32 {
 fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     info!(&ctx, "tracepoint sys_enter_openat called");
 
-
+    // // Get the current user ID
+let uid = bpf_get_current_uid_gid() as u64;
+    info!(&ctx, "uid: {}", uid);
     
   
  
