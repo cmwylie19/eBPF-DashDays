@@ -31,33 +31,11 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
 
-    // let user = unsafe {
-    //     bpf_probe_read_user_str_bytes(ctx.as_ptr() as *const u8, &mut dest);
-    // };
-    // info!(&ctx, "user:  ",user );
-    let src_ptr = unsafe { ctx.as_ptr().add(16) as *const u8 };
+    let user = unsafe {
+        bpf_probe_read_user_str_bytes(ctx.as_ptr() as *const u8, &mut dest);
+    };
+    info!(&ctx, "user:  ",user );
 
-    // Read the string from user space into your buffer
-    let user = unsafe { bpf_probe_read_user_str_bytes(src_ptr, &mut dest) };
-
-    
-    // Check the result of the read operation
-    match user {
-        Ok(len) => {
-        
-            if let Ok(str) = core::str::from_utf8(&dest[..len]) {
-                info!(&ctx, "user: {}", str);
-            } else {
-                // Handle invalid UTF-8
-                info!(&ctx, "user: [Invalid UTF-8]");
-            }
-        }
-        Err(err) => {
-            info!(&ctx, "Failed to read user string: {}", err);
-
-            return Err(err as u32);
-        }
-    }
 
     // let mut dest = [0u8; 256];
 
