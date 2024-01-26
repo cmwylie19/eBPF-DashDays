@@ -36,10 +36,10 @@ fn try_file_controller_3(ctx: ProbeContext) -> Result<u32, u32> {
             let filename_len = bpf_probe_read_user_str(filename_addr as *const u8, &mut buf)
                 .map_err(|e| e as u32)? as u8;
 
-            let log_entry = Filename {
-                filename: buf,
-                filename_len,
-            };
+            // let log_entry = Filename {
+            //     filename: buf,
+            //     filename_len,
+            // };
             info!(&ctx, "filename: {} ", log_entry.filename_len);
         //     PIDS.insert(&pid, &log_entry, 0).unwrap();
         // }
