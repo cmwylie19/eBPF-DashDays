@@ -1,6 +1,7 @@
 #![no_std]
 #![no_main]
 
+use aya_bpf::helpers::bpf_get_current_uid_gid;
 use aya_bpf::helpers::bpf_ktime_get_ns;
 use aya_bpf::{
     helpers::bpf_probe_read_user, macros::tracepoint, maps::HashMap, programs::TracePointContext,
@@ -8,8 +9,6 @@ use aya_bpf::{
 use aya_log_ebpf::info;
 use core::convert::TryInto;
 use file_controller_2_common::FileLog;
-use aya_bpf::helpers::bpf_get_current_uid_gid;
-
 
 #[aya_bpf::macros::map]
 static EVENTS: HashMap<u64, FileLog> = HashMap::with_max_entries(1024, 0);
