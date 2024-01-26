@@ -37,7 +37,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
 
     info!(&ctx, "user:", user);
     info!(&ctx, "file_name:", file_name);
-    info!(dest, "dest");
+    info!(&dest, "dest");
 
     // let mut dest = [0u8; 256];
 
