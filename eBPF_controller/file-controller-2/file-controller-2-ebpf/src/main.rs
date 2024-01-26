@@ -33,7 +33,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     info!(&ctx, "uid: {}", uid);
 
     let node: *const c_char;
-    let user = unsafe { bpf_probe_read_user_str_bytes( &mut buf) };
+    let user = unsafe { bpf_probe_read_user_str_bytes(*const u8, &mut buf) };
 
     info!(&ctx, "user:", user);
 
