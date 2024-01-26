@@ -28,7 +28,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
     
-    info!(&ctx, "data", ctx.data());
+    info!(&ctx, "data: {}", ctx.data());
  
    
 
