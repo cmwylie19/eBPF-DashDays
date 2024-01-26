@@ -31,10 +31,30 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
 
+    // let user = unsafe {
+    //     bpf_probe_read_user_str_bytes(ctx.as_ptr() as *const u8, &mut dest);
+    // };
+    // info!(&ctx, "user:  ",user );
+    let src_ptr = unsafe { ctx.as_ptr().add(offset) as *const u8 };
+
+    // Read the string from user space into your buffer
     let user = unsafe {
-        bpf_probe_read_user_str_bytes(ctx.as_ptr() as *const u8, &mut dest);
+        bpf_probe_read_user_str_bytes(src_ptr, &mut dest)
     };
-    info!(&ctx, "user:  ",user );
+
+    // Check the result of the read operation
+    match user {
+        Ok(len) => {
+            // String read successfully, `len` contains the length of the string.
+            // You can now use `dest` buffer which contains the copied string.
+            info!(&ctx, "user:  {}",user );
+        }
+        Err(err) => {
+            // Handle the error, for example, you might want to return an error code from your eBPF program
+            return Err(err as u32);
+        }
+    }
+    
     // let mut dest = [0u8; 256];
     
     // let r = unsafe {
