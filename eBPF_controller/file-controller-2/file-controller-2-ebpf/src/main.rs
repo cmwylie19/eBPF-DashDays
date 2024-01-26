@@ -47,7 +47,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
         Ok(len) => {
             if let Ok(str) = core::str::from_utf8(&dest[..len]) {
                 info!(&ctx, "user: {}", str);
-            }else {
+            } else {
                 // Handle invalid UTF-8
                 info!(&ctx, "user: [Invalid UTF-8]");
             }
