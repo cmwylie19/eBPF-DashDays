@@ -74,7 +74,7 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
     send_byte[9..17].copy_from_slice(&syscall_number.to_le_bytes());
     unsafe { RECORD_LOGS.output(&ctx, &send_byte[..19], 0) };
     let arg_table = unsafe { SYSCALL_ARG_TABLE.get(&syscall_number).ok_or(0) }?;
-    let args: [usize; 6] = unsafe { ctx.read_at(16) }?;
+    let args: [usize; 6] = unsafe { ctx.read_at(16) };
     let _ = unsafe { CONTEXT.insert(&tid, &args, 0) };
     for (i, ty_size) in arg_table.iter().enumerate() {
         let ty: ArgType = ArgType::from_bits_retain((*ty_size >> 8) as u8);
