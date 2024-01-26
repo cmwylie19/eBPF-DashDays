@@ -70,18 +70,18 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
 
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
-    unsafe {
-        let comm = bpf_get_current_comm().unwrap();
-        let fname_ptr: usize = ctx.read_at(24).unwrap();
-        bpf_printk!(
-            b"---------------- command: %s openfile: %s",
-            comm.as_ptr() as usize,
-            fname_ptr
-        );
-    }
+    // unsafe {
+    //     let comm = bpf_get_current_comm().unwrap();
+    //     let fname_ptr: usize = ctx.read_at(24).unwrap();
+    //     bpf_printk!(
+    //         b"---------------- command: %s openfile: %s",
+    //         comm.as_ptr() as usize,
+    //         fname_ptr
+    //     );
+    // }
 
     match unsafe {try_syspection(&ctx)} {
-        Ok(ret) => ret,
+        Ok(ret) => 0,
         Err(ret) => ret as i32,
     }
 
