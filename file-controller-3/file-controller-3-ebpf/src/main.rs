@@ -22,11 +22,11 @@ pub fn file_controller_3(ctx: ProbeContext) -> u32 {
     }
 }
 
-fn try_file_controller_3<T>(ctx: ProbeContext) -> Result<u32, u32> {
+fn try_file_controller_3(ctx: ProbeContext) -> Result<u32, u32> {
     info!(&ctx, "function syscalls:sys_enter_execv called");
 
     unsafe {
-        let arg = ctx.arg::<T>(0).unwrap();
+        let arg = ctx.arg(0).unwrap();
         let arg_str = arg.to_string(); // This requires that T implements ToString or has a similar method
         info!(&ctx, "args: {} ", arg_str);
 
