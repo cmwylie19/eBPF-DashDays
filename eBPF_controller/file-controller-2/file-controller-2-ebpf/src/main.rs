@@ -1,6 +1,7 @@
 #![no_std]
 #![no_main]
 use aya_bpf::helpers::*;
+use aya_bpf::cty::c_long;
 use aya_bpf::{bpf_printk, helpers::bpf_get_current_comm};
 use aya_bpf::{
     helpers::bpf_probe_read_user, macros::tracepoint, maps::HashMap, programs::TracePointContext,
@@ -12,14 +13,14 @@ use file_controller_2_common::FileLog;
 static EVENTS: HashMap<u64, FileLog> = HashMap::with_max_entries(1024, 0);
 
 #[tracepoint]
-pub fn file_controller_2(ctx: TracePointContext) -> u32 {
+pub fn file_controller_2(ctx: TracePointContext) -> c_long {
     match try_file_controller_2(ctx) {
         Ok(ret) => ret,
         Err(ret) => ret,
     }
 }
 
-fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
+fn try_file_controller_2(ctx: TracePointContext) -> Result<c_long, c_long> {
     info!(&ctx, "tracepoint sys_enter_openat called");
 
     let uid = bpf_get_current_uid_gid() as u64;
