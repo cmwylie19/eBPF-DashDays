@@ -42,7 +42,9 @@ fn try_tracepoint_controller(ctx: TracePointContext) -> Result<c_long, c_long>  
             )?,
         )
     };
-    
+    if filename.contains("read") {
+        return Ok(1);
+    }
 
     let pid = bpf_get_current_pid_tgid() as u32;
     
