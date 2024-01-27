@@ -21,10 +21,10 @@ pub fn file_controller_2(ctx: TracePointContext) -> c_long {
 }
 
 fn try_file_controller_2(ctx: TracePointContext) -> Result<c_long, c_long> {
-    info!(&ctx, "tracepoint sys_enter_openat called");
+    // info!(&ctx, "tracepoint sys_enter_openat called");
 
-    let uid = bpf_get_current_uid_gid() as u64;
-    info!(&ctx, "uid: {}", uid);
+    // let uid = bpf_get_current_uid_gid() as u64;
+    // info!(&ctx, "uid: {}", uid);
     const FILENAME_OFFSET: usize = 16;
     let filename_addr: u64 =
         unsafe { ctx.read_at(FILENAME_OFFSET)? };
