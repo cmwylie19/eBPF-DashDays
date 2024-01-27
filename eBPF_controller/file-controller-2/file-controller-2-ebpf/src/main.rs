@@ -24,16 +24,27 @@ fn try_file_controller_2(ctx: TracePointContext) -> Result<u32, u32> {
 
     let uid = bpf_get_current_uid_gid() as u64;
     info!(&ctx, "uid: {}", uid);
-    unsafe {
-        let comm = bpf_get_current_comm().unwrap();
-        let fname_ptr: usize = ctx.read_at(24).unwrap();
-        bpf_printk!(
-            b"---------------- command: %s openfile: %s",
-            comm.as_ptr() as usize,
-            fname_ptr
-        );
-    }
-  
+    const FILENAME_OFFSET: usize = 16;
+    let filename_addr: u64 =
+        unsafe { ctx.read_at(FILENAME_OFFSET)? };
+
+    const BUF_SIZE: usize = 128;
+    let mut buf = [0u8; BUF_SIZE];
+    // read the filename
+    let filename = unsafe {
+        core::str::from_utf8_unchecked(
+            bpf_probe_read_user_str_bytes(
+                filename_addr as *const u8,
+                &mut buf,
+            )?,
+        )
+    };
+    
+
+    let pid = bpf_get_current_pid_tgid() as u32;
+    
+    info!(&ctx, "{} {}", pid, filename);
+
    
     //  let fname_ptr: usize = ctx.read_at(24).unwrap();
     // unsafe {
